@@ -19,7 +19,7 @@
   environment.systemPackages = with pkgs; [
     # Tools
     atool autojump dropbox file fish gist gnupg htop keybase moreutils mosh
-    nix-repl pstree ranger rlwrap tmux tree vim wget which
+    nix-repl psmisc ranger rlwrap tmux tree vim wget which
 
     # Programming
     # TODO: Add git-radar for fish rprompt.
