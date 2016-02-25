@@ -18,20 +18,21 @@
   environment.variables.EDITOR = "vim";
   environment.systemPackages = with pkgs; [
     # Tools
-    atool autojump dropbox file fish gist gnupg htop keybase moreutils mosh
-    nix-repl psmisc ranger rlwrap tmux tree vim wget which
+    atool autojump dropbox file fish gist gnupg htop keybase moreutils mosh nix-repl psmisc ranger
+    rlwrap tmux tree vim wget which
 
     # Programming
     # TODO: Add git-radar for fish rprompt.
-    cloc gitFull git-hub man-pages neovim python silver-searcher
+    cloc gitFull git-hub man-pages python silver-searcher
+
+    # format-duration
   ];
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.packageOverrides = import ./pkgs;
 
-  # Propagate nixpkgs config globally. This causes package overrides here to
-  # affect the entire system. (E.g. nix-shell -p vim will use the vim override
-  # specified here.)
+  # Propagate nixpkgs config globally. This causes package overrides here to affect the entire
+  # system. (E.g. nix-shell -p vim will use the vim override specified here.)
   environment.etc."nix/nixpkgs-config.nix".text = ''
     (import <nixpkgs/nixos> {}).config.nixpkgs.config
   '';
