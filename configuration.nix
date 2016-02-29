@@ -15,11 +15,11 @@
   };
 
   programs.fish.enable = true;
-  environment.variables.EDITOR = "vim";
+  environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; [
     # Tools
-    atool autojump dropbox file fish gist gnupg htop keybase moreutils mosh nix-repl psmisc ranger
-    rlwrap tmux tree vim wget which
+    atool autojump dropbox file fish gist gnupg htop keybase moreutils mosh neovim nix-repl psmisc
+    ranger rlwrap tmux tree wget which
 
     # Programming
     # TODO: Add git-radar for fish rprompt.
