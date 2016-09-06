@@ -18,14 +18,11 @@
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; [
     # Tools
-    atool autojump dropbox file fish gist gnupg htop keybase moreutils mosh neovim nix-repl psmisc
-    ranger rlwrap tmux tree wget which
+    atool autojump dropbox file fish gist gnupg htop keybase moreutils mosh
+    neovim nix-repl psmisc ranger rlwrap tmux tree wget which vimHugeX
 
     # Programming
-    # TODO: Add git-radar for fish rprompt.
-    cloc gitFull git-hub man-pages python silver-searcher
-
-    # format-duration
+    cloc gitFull git-hub gitAndTools.hub man-pages python3 silver-searcher ruby
   ];
 
   nixpkgs.config.allowUnfree = true;
