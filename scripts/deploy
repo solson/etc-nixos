@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require_relative('config.rb')
+
+system('rsync', '-rltvzP', *$files, "#{$remote}:/etc/nixos/") || abort
+system('ssh', $remote, 'nixos-rebuild', *ARGV) || abort

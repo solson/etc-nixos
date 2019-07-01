@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require_relative('config.rb')
+
+system('ssh', $remote, 'nixos-generate-config', '--show-hardware-config') || abort

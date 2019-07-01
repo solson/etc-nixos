@@ -1,37 +1,60 @@
-{ pkgs, ... }:
+# In future, if not using an existing snapshot (e.g. on Vultr), try using
+# https://nixos.wiki/wiki/Creating_a_NixOS_live_CD with this configuration to
+# generate an installation ISO for a new VPS.
+
+{ config, pkgs, ... }:
+
+let
+  sshKey = builtins.readFile ./id_rsa.pub;
+in
+
 {
   imports = [
-    ./digitalocean.nix
+    ./hardware-configuration.nix
     ./nginx.nix
-    # ./znc.nix
   ];
 
-  networking.hostName = "quark";
-  i18n.defaultLocale = "en_CA.UTF-8";
-
-  users.extraUsers.scott = {
-    isNormalUser = true;
-    description = "Scott Olson";
-    extraGroups = [ "nginx" "wheel" ];
+  boot.loader.grub = {
+    enable = true;
+    version = 2;
+    device = "/dev/vda";
   };
 
-  programs.fish.enable = true;
+  networking.hostName = "shannon";
+  i18n.defaultLocale = "en_US.UTF-8";
+
+  users.users = {
+    root = {
+      openssh.authorizedKeys.keys = [ sshKey ];
+    };
+
+    scott = {
+      isNormalUser = true;
+      description = "Scott Olson";
+      extraGroups = [ config.services.nginx.group "wheel" ];
+      openssh.authorizedKeys.keys = [ sshKey ];
+    };
+  };
+
+  services.openssh = {
+    enable = true;
+    permitRootLogin = "prohibit-password";
+  };
+
+  programs.mosh.enable = true;
+
   environment.variables.EDITOR = "nvim";
   environment.systemPackages = with pkgs; [
-    # Tools
-    atool autojump dropbox file fish gist gnupg htop keybase moreutils mosh
-    neovim psmisc ranger rlwrap rsync tmux tree wget which vimHugeX
-
-    # Programming
-    cloc gitFull git-hub gitAndTools.hub man-pages python3 silver-searcher ruby
+    git
+    htop
+    neovim
+    psmisc
+    tmux
+    tree
+    wget
+    which
   ];
 
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.packageOverrides = import ./pkgs;
-
-  # Propagate nixpkgs config globally. This causes package overrides here to affect the entire
-  # system. (E.g. nix-shell -p vim will use the vim override specified here.)
-  environment.etc."nix/nixpkgs-config.nix".text = ''
-    (import <nixpkgs/nixos> {}).config.nixpkgs.config
-  '';
+  system.autoUpgrade.enable = true;
+  system.stateVersion = "19.03";
 }
