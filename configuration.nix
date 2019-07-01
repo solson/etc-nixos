@@ -3,6 +3,7 @@
   imports = [
     ./digitalocean.nix
     ./nginx.nix
+    # ./znc.nix
   ];
 
   networking.hostName = "quark";
@@ -19,7 +20,7 @@
   environment.systemPackages = with pkgs; [
     # Tools
     atool autojump dropbox file fish gist gnupg htop keybase moreutils mosh
-    neovim nix-repl psmisc ranger rlwrap rsync tmux tree wget which vimHugeX
+    neovim psmisc ranger rlwrap rsync tmux tree wget which vimHugeX
 
     # Programming
     cloc gitFull git-hub gitAndTools.hub man-pages python3 silver-searcher ruby
