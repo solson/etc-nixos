@@ -32,12 +32,16 @@
       "solson.me" = {
         enableACME = true;
         forceSSL = true;
+        extraConfig =
+          "add_header Strict-Transport-Security 'max-age=31536000';";
         locations."/".root = "/srv/www/solson.me";
       };
 
       "dev.solson.me" = {
         useACMEHost = "solson.me";
         forceSSL = true;
+        extraConfig =
+          "add_header Strict-Transport-Security 'max-age=31536000';";
         locations."/".root = "/srv/www/dev.solson.me";
       };
     };
