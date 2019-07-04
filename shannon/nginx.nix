@@ -21,8 +21,15 @@
     recommendedTlsSettings = true;
 
     virtualHosts = {
-      "solson.me" = {
+      # A catchall vhost (with empty server name) in case this nginx server
+      # gets visited directly by IP or through another subdomain that it
+      # doesn't know about.
+      "''" = {
         default = true;
+        globalRedirect = "solson.me";
+      };
+
+      "solson.me" = {
         enableACME = true;
         forceSSL = true;
         locations."/".root = "/srv/www/solson.me";
