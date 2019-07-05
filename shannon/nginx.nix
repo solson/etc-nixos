@@ -15,6 +15,9 @@
   services.nginx = {
     enable = true;
 
+    # TODO(solson): Remove once we upgrade NixOS and this is in upstream nginx.
+    appendHttpConfig = "types { font/woff2 woff2; }";
+
     recommendedGzipSettings = true;
     recommendedOptimisation = true;
     recommendedProxySettings = true;
