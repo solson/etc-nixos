@@ -37,7 +37,18 @@
         forceSSL = true;
         extraConfig =
           "add_header Strict-Transport-Security 'max-age=31536000';";
-        locations."/".root = "/srv/www/solson.me";
+        locations = {
+          "/".root = "/srv/www/solson.me";
+          "^~ /irc/".extraConfig = ''
+            proxy_pass http://127.0.0.1:${toString config.services.thelounge.port}/;
+            proxy_http_version 1.1;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_read_timeout 1d;
+          '';
+        };
       };
 
       "dev.solson.me" = {

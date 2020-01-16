@@ -41,6 +41,20 @@ in
     permitRootLogin = "prohibit-password";
   };
 
+  services.thelounge = {
+    enable = true;
+    private = true;
+    extraConfig = {
+      public = false;
+      reverseProxy = true;
+      prefetch = true;
+      fileUpload = {
+        enable = true;
+      };
+      leaveMessage = "bye";
+    };
+  };
+
   programs.mosh.enable = true;
 
   environment.variables.EDITOR = "nvim";
