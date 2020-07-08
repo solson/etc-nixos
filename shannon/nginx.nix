@@ -3,11 +3,14 @@
 {
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-  security.acme.certs = {
-    "solson.me" = {
-      email = "scott@solson.me";
-      extraDomains = {
-        "dev.solson.me" = null;
+  security.acme = {
+    acceptTerms = true;
+    certs = {
+      "solson.me" = {
+        email = "scott@solson.me";
+        extraDomains = {
+          "dev.solson.me" = null;
+        };
       };
     };
   };

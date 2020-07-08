@@ -6,6 +6,7 @@
 
 let
   sshKey = builtins.readFile ./id_rsa.pub;
+  identdPort = 113;
 in
 
 {
@@ -22,6 +23,8 @@ in
 
   networking.hostName = "shannon";
   i18n.defaultLocale = "en_US.UTF-8";
+
+  networking.firewall.allowedTCPPorts = [ identdPort ];
 
   users.users = {
     root = {
@@ -43,7 +46,6 @@ in
 
   services.thelounge = {
     enable = true;
-    private = true;
     extraConfig = {
       public = false;
       reverseProxy = true;
@@ -53,6 +55,11 @@ in
       };
       leaveMessage = "bye";
     };
+  };
+
+  services.nullidentdmod = {
+    enable = true;
+    userid = "scott";
   };
 
   programs.mosh.enable = true;
