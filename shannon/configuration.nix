@@ -24,7 +24,13 @@ in
   networking.hostName = "shannon";
   i18n.defaultLocale = "en_US.UTF-8";
 
-  networking.firewall.allowedTCPPorts = [ identdPort ];
+  networking.firewall = {
+    allowedTCPPorts = [ identdPort ];
+
+    # These log messages are big and happen many times per minute, causing log
+    # bloat and systemd-journald to use over 70 MiB of RAM.
+    logRefusedConnections = false;
+  };
 
   users.users = {
     root = {
