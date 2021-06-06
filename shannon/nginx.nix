@@ -8,9 +8,7 @@
     certs = {
       "solson.me" = {
         email = "scott@solson.me";
-        extraDomains = {
-          "dev.solson.me" = null;
-        };
+        extraDomainNames = [ "dev.solson.me" ];
       };
     };
   };
