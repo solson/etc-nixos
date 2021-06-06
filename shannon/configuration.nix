@@ -58,6 +58,7 @@ in
       prefetch = true;
       fileUpload = {
         enable = true;
+        maxFileSize = 100000;
       };
       leaveMessage = "bye";
     };

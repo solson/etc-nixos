@@ -47,7 +47,7 @@
           "add_header Strict-Transport-Security 'max-age=31536000';";
         locations = {
           "/".root = "/srv/www/solson.me";
-          "^~ /irc/".extraConfig = ''
+          "/irc/".extraConfig = ''
             proxy_pass http://127.0.0.1:${toString config.services.thelounge.port}/;
             proxy_http_version 1.1;
             proxy_set_header Connection "upgrade";
@@ -55,6 +55,20 @@
             proxy_set_header X-Forwarded-For $remote_addr;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_read_timeout 1d;
+            client_max_body_size 0;
+          '';
+          "/irc/uploads/".extraConfig = ''
+            proxy_pass http://127.0.0.1:${toString config.services.thelounge.port}/uploads/;
+            proxy_http_version 1.1;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header X-Forwarded-For $remote_addr;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_read_timeout 1d;
+            proxy_hide_header Content-Disposition;
+            add_header Content-Disposition "inline";
+            client_max_body_size 0;
+          '';
           '';
         };
       };
