@@ -89,6 +89,5 @@ in
     which
   ];
 
-  system.autoUpgrade.enable = true;
   system.stateVersion = "19.03";
 }
