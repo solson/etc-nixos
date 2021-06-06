@@ -45,6 +45,7 @@
           "add_header Strict-Transport-Security 'max-age=31536000';";
         locations = {
           "/".root = "/srv/www/solson.me";
+          "/files/".alias = "/srv/www/solson.me-files/";
           "/irc/".extraConfig = ''
             proxy_pass http://127.0.0.1:${toString config.services.thelounge.port}/;
             proxy_http_version 1.1;
