@@ -64,12 +64,6 @@ in
     };
   };
 
-  services.convos = {
-    enable = true;
-    listenAddress = "127.0.0.1";
-    reverseProxy = true;
-  };
-
   services.nullidentdmod = {
     enable = true;
     userid = "scott";

@@ -60,18 +60,6 @@
             add_header Content-Disposition "inline";
             client_max_body_size 0;
           '';
-          "/convos/".extraConfig = ''
-            proxy_pass http://127.0.0.1:${toString config.services.convos.listenPort}/;
-            proxy_http_version 1.1;
-            proxy_set_header Connection "upgrade";
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            rewrite ^/convos/?(.*)$ /$1 break;
-            proxy_set_header X-Request-Base "$scheme://$host/convos";
-            proxy_read_timeout 1d;
-            client_max_body_size 0;
-          '';
         };
       };
 
